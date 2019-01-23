@@ -1,0 +1,98 @@
+<template>
+  <div>
+    <h2>Edit Hero</h2>
+    <div class="card my-3" style="width: auto;">
+      <form class="card-header" @submit.prevent="onSubmit(hero)">
+        <section class="d-flex flex-row">
+          <div class="mt-3 mr-3 input-width">
+            <label for="firstName">First Name</label>
+            <input
+              type="text"
+              id="firstName"
+              class="form-control"
+              v-model="hero.firstName"
+            />
+          </div>
+          <div class="mt-3 ml-3 input-width">
+            <label for="lastName">Last Name</label>
+            <input
+              type="text"
+              id="lastName"
+              class="form-control"
+              v-model="hero.lastName"
+            />
+          </div>
+        </section>
+        <label for="house" class="mt-3">House</label>
+        <input
+          type="text"
+          id="house"
+          class="form-control"
+          v-model="hero.house"
+        />
+        <label for="knownAs" class="mt-3">Known as</label>
+        <input
+          type="text"
+          id="knownAs"
+          class="form-control"
+          v-model="hero.knownAs"
+        />
+        <button type="submit" class="btn btn-info mt-3" :disabled="isSuccess">
+          Update
+        </button>
+        <button @click="back" type="button" class="btn btn-default mt-3">
+          Back
+        </button>
+      </form>
+    </div>
+    <div v-if="isSuccess" class="alert alert-success col-md-3" role="alert">
+      This hero has been updated!
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapActions } from "vuex";
+
+import * as types from "../store/types";
+
+export default {
+  name: "EditHero",
+  data() {
+    return {
+      isSuccess: false
+    };
+  },
+  computed: {
+    ...mapGetters({
+      hero: types.GETTERS_INIT_HERO
+    })
+  },
+  methods: {
+    onSubmit(hero) {
+      this.putHero(hero);
+      this.isSuccess = true;
+    },
+    back() {
+      this.$router.back();
+    },
+    ...mapActions({
+      initHero: types.ACTION_GET_HERO,
+      putHero: types.ACTION_UPDATE_HERO
+    })
+  },
+  beforeMount() {
+    this.initHero(this.$route.params.id);
+  }
+};
+</script>
+
+<style scoped>
+p {
+  font-size: 1.25rem;
+}
+
+.input-width {
+  width: 100%;
+}
+</style>

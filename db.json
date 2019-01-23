@@ -1,0 +1,20 @@
+{
+  "heroes": [
+    {
+      "id": "1",
+      "firstName": "Tyrion",
+      "lastName": "Lanister",
+      "knownAs": "The Imp",
+      "house": "Lanister"
+    }
+  ],
+  "villains": [
+    {
+      "id": "1",
+      "firstName": "John",
+      "lastName": "Snow",
+      "knownAs": "The King of the North.",
+      "house": "Stark"
+    }
+  ]
+}
