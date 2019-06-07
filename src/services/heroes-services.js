@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BaseUrl } from "@/utils/constants";
+import  BaseUrl  from "@/services/api-config";
 
 const heroesServices = {
   getHeroes() {

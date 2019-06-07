@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$emit("handleSubmit"); // triggers the method of a container
+      this.$emit("handleSubmit"); // triggers the method of the container holding this
     },
     showNewItemForm() {
       this.$emit("handleShowNewItemForm");

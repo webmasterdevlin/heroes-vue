@@ -14,7 +14,7 @@ const mutations = {
   },
 
   // Applicable if a component(s) of the current page is rendering the array of heroes
-  // This will update the properties hero inside the array of heroes
+  // This will update the hero properties inside the array of heroes
   [types.MUTATE_UPDATE_HERO](state, hero) {
     const index = state.heroes.findIndex(h => h.id === hero.id);
     state.heroes[index] = hero;

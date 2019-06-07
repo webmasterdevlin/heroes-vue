@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "backend": "json-server --watch db.json --port 3000",
+    "backend": "json-server --watch db.json --port 3000 --delay 500",
     "start": "concurrently \"npm run backend\" \"npm run serve\""
   },
   "dependencies": {

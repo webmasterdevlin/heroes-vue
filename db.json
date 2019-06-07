@@ -6,6 +6,13 @@
       "lastName": "Lanister",
       "knownAs": "The Imp",
       "house": "Lanister"
+    },
+    {
+      "firstName": "Jon",
+      "lastName": "Snow",
+      "house": "Starks",
+      "knownAs": "Jon",
+      "id": "c2apRjQ"
     }
   ],
   "villains": [

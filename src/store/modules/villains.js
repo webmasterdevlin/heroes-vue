@@ -1,7 +1,7 @@
 // Single-file module
 import * as types from "@/store/types";
 import axios from "axios";
-import { BaseUrl } from "@/utils/constants";
+import BaseUrl from "@/services/api-config";
 
 const state = {
   villains: [],
@@ -22,7 +22,7 @@ const mutations = {
   },
 
   // Applicable if a component(s) of the current page is rendering the array of villains
-  // This will update the properties hero inside the array of villains
+  // This will update the villain properties inside the array of villains
   [types.MUTATE_UPDATE_VILLAIN](state, villain) {
     const index = state.villains.findIndex(v => v.id === villain.id);
     state.villains[index] = villain;
