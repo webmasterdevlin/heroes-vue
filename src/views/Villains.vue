@@ -7,7 +7,19 @@
       @handleShowNewItemForm="showNewItemForm"
       @handleCancelForm="cancelForm"
     ></NewItemForm>
-    <section is="transition-group" name="fadeitem" v-cloak>
+    <div
+      v-if="isLoading"
+      style="display:flex; flex-direction: row; justify-content: center"
+    >
+      <div
+        class="spinner-border"
+        style="width: 9rem; height: 9rem; color: purple"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <section v-else is="transition-group" name="fadeitem" v-cloak>
       <div
         class="card mt-3"
         style="width: auto;"
@@ -24,18 +36,18 @@
         <section class="card-body">
           <div class="row">
             <button
+              @click="editVillain(villain.id)"
+              class="btn btn-primary card-link col text-center"
+            >
+              <li class="fas fa-edit"></li>
+              Edit
+            </button>
+            <button
               @click="removeVillain(villain)"
               class="btn btn-outline-danger card-link col text-center"
             >
               <li class="fas fa-eraser"></li>
               Delete
-            </button>
-            <button
-              @click="editVillain(villain.id)"
-              class="btn btn-outline-primary card-link col text-center"
-            >
-              <li class="fas fa-edit"></li>
-              Edit
             </button>
           </div>
         </section>
@@ -65,7 +77,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      villains: types.GETTERS_INIT_VILLAINS
+      villains: types.GETTERS_INIT_VILLAINS,
+      isLoading: types.GETTERS_ISLOADING_VILLAIN
     })
   },
   methods: {
@@ -88,7 +101,7 @@ export default {
       this.deleteVillain(villain);
     },
     editVillain(id) {
-      this.$router.push({ name: "edit-villain", params: { id: id } });
+      this.$router.push({ name: "edit-villain", params: { id } });
     },
     ...mapActions({
       initVillains: types.ACTION_GET_VILLAINS,

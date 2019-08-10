@@ -1,6 +1,14 @@
 const state = {
   heroes: [],
-  hero: {}
+  hero: {
+    id: "",
+    firstName: "",
+    lastName: "",
+    house: "",
+    knownAs: ""
+  },
+  isLoading: false,
+  error: ""
 };
 
 export default state;

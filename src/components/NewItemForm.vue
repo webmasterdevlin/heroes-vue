@@ -1,11 +1,7 @@
 <template>
   <div>
     <section class="d-flex flex-row justify-content-start">
-      <button
-        @click="showNewItemForm"
-        type="button"
-        class="btn btn-outline-success mx-1"
-      >
+      <button @click="showNewItemForm" type="button" class="btn btn-info mx-1">
         <span class="fas fa-plus my-lg-0"></span> Add New
       </button>
       <transition name="fade">

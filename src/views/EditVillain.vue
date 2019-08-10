@@ -1,7 +1,19 @@
 <template>
   <div>
     <h2>Edit Villain</h2>
-    <div class="card my-3" style="width: auto;">
+    <div
+      v-if="isLoading"
+      style="display:flex; flex-direction: row; justify-content: center"
+    >
+      <div
+        class="spinner-border"
+        style="width: 9rem; height: 9rem; color: purple"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div v-else class="card my-3" style="width: auto;">
       <form class="card-header" @submit.prevent="onSubmit(villain)">
         <section class="d-flex flex-row">
           <div class="mt-3 mr-3 input-width">
@@ -40,7 +52,11 @@
         <button type="submit" class="btn btn-info mt-3" :disabled="isSuccess">
           Update
         </button>
-        <button @click="back" type="button" class="btn btn-default mt-3">
+        <button
+          @click="back"
+          type="button"
+          class="btn btn-outline-info mt-3 ml-3"
+        >
           Back
         </button>
       </form>
@@ -64,7 +80,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      villain: types.GETTERS_INIT_VILLAIN
+      villain: types.GETTERS_INIT_VILLAIN,
+      isLoading: types.GETTERS_ISLOADING_VILLAIN
     })
   },
   methods: {

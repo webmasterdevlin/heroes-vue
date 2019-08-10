@@ -32,6 +32,12 @@
           <router-link class="nav-link" to="/villains"> Villains </router-link>
         </li>
       </ul>
+      <span class="mr-5" style=" color: purple; font-size: 24px">
+        Total heroes: {{ totalHeroes }}
+      </span>
+      <span class="mr-5" style=" color: purple; font-size: 24px">
+        Total villains: {{ totalVillains }}
+      </span>
       <ul class="navbar-nav my-2 my-lg-0">
         <li class="nav-item">
           <a
@@ -55,12 +61,21 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import * as types from "../store/types";
+
 export default {
   name: "HeadNav",
   data() {
     return {
       navIsCollapse: true
     };
+  },
+  computed: {
+    ...mapGetters({
+      totalHeroes: types.GETTERS_TOTAL_HEROES,
+      totalVillains: types.GETTERS_TOTAL_VILLAINS
+    })
   }
 };
 </script>

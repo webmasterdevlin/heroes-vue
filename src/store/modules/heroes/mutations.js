@@ -23,6 +23,15 @@ const mutations = {
   [types.MUTATE_REMOVE_HERO](state, id) {
     const index = state.heroes.findIndex(h => h.id === id);
     state.heroes.splice(index, 1);
+  },
+
+  [types.MUTATE_ISLOADING_HERO](state, toggle) {
+    state.isLoading = toggle;
+  },
+
+  [types.MUTATE_ERROR_HERO](state, errorMessage) {
+    state.error = errorMessage;
+    alert("Something happened: " + errorMessage);
   }
 };
 

@@ -7,8 +7,19 @@
       @handleShowNewItemForm="showNewItemForm"
       @handleCancelForm="cancelForm"
     ></NewItemForm>
-
-    <section is="transition-group" name="fadeitem" v-cloak>
+    <div
+      v-if="isLoading"
+      style="display:flex; flex-direction: row; justify-content: center"
+    >
+      <div
+        class="spinner-border"
+        style="width: 9rem; height: 9rem; color: purple"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <section v-else is="transition-group" name="fadeitem" v-cloak>
       <div
         class="card mt-3"
         style="width: auto;"
@@ -23,18 +34,18 @@
         <section class="card-body">
           <div class="row">
             <button
+              @click="editHero(hero.id)"
+              class="btn btn-primary card-link col text-center"
+            >
+              <li class="fas fa-edit"></li>
+              Edit
+            </button>
+            <button
               @click="removeHero(hero)"
               class="btn btn-outline-danger card-link col text-center"
             >
               <li class="fas fa-eraser"></li>
               Delete
-            </button>
-            <button
-              @click="editHero(hero.id)"
-              class="btn btn-outline-primary card-link col text-center"
-            >
-              <li class="fas fa-edit"></li>
-              Edit
             </button>
           </div>
         </section>
@@ -64,7 +75,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      heroes: types.GETTERS_INIT_HEROES
+      heroes: types.GETTERS_INIT_HEROES,
+      isLoading: types.GETTERS_ISLOADING_HERO
     })
   },
   methods: {
@@ -87,7 +99,7 @@ export default {
       this.deleteHero(hero);
     },
     editHero(id) {
-      this.$router.push({ name: "edit-hero", params: { id: id } });
+      this.$router.push({ name: "edit-hero", params: { id } });
     },
     ...mapActions({
       initHeroes: types.ACTION_GET_HEROES,
