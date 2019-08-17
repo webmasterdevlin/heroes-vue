@@ -105,7 +105,7 @@ const actions = {
     const previousVillains = getters.GETTERS_INIT_VILLAINS;
     commit(types.MUTATE_REMOVE_VILLAIN, villain.id);
     return axios
-      .delete(`${BaseUrl.villains}${villain.id}123`)
+      .delete(`${BaseUrl.villains}${villain.id}`)
       .then(() => {
         return Promise.resolve();
       })
