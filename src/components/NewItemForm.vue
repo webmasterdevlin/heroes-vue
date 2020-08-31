@@ -17,7 +17,7 @@
     </section>
     <transition name="slide" type="animation">
       <div class="card my-3" style="width: auto;" v-if="isShowNewItemForm">
-        <ValidationObserver v-slot="{ invalid }">
+        <ValidationObserver tag="form" v-slot="{ invalid }">
         <form class="card-header" @submit.prevent="onSubmit">
           <section class="d-flex flex-row">
             <div class="mt-3 mr-3 input-width">
@@ -29,6 +29,7 @@
                       id="firstName"
                       class="form-control"
                       v-model="newItem.firstName"
+                      placeholder="📛"
                   />
                   <span class="text-danger">{{ errors[0] }}</span>
                 </ValidationProvider>
@@ -44,6 +45,7 @@
                      id="lastName"
                      class="form-control"
                      v-model="newItem.lastName"
+                     placeholder="📛"
                  />
                  <span class="text-danger">{{ errors[0] }}</span>
                </ValidationProvider>
@@ -58,6 +60,7 @@
                   id="house"
                   class="form-control"
                   v-model="newItem.house"
+                  placeholder="🏠"
               />
               <span class="text-danger">{{ errors[0] }}</span>
             </ValidationProvider>
@@ -70,6 +73,7 @@
                   id="knownAs"
                   class="form-control"
                   v-model="newItem.knownAs"
+                  placeholder="👀"
               />
               <span class="text-danger">{{ errors[0] }}</span>
             </ValidationProvider>
@@ -85,20 +89,10 @@
 </template>
 
 <script>
-import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { required } from 'vee-validate/dist/rules';
 
-extend('required', {
-  ...required,
-  message: 'This field is required'
-});
 
 export default {
   name: "NewItemForm",
-  components: {
-    ValidationProvider,
-    ValidationObserver
-  },
   props: {
     isShowNewItemForm: {
       type: Boolean,

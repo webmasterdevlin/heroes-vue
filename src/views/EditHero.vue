@@ -14,42 +14,63 @@
       </div>
     </div>
     <div v-else class="card my-3" style="width: auto;">
+      <ValidationObserver tag="form" v-slot="{ invalid }">
       <form class="card-header" @submit.prevent="onSubmit(hero)">
         <section class="d-flex flex-row">
           <div class="mt-3 mr-3 input-width">
+            <ValidationProvider rules="required" v-slot="{errors}">
             <label for="firstName">First Name</label>
             <input
               type="text"
               id="firstName"
               class="form-control"
               v-model="hero.firstName"
+              placeholder="📛"
             />
+              <span class="text-danger">{{ errors[0] }}</span>
+            </ValidationProvider>
           </div>
           <div class="mt-3 ml-3 input-width">
+            <ValidationProvider rules="required" v-slot="{errors}">
             <label for="lastName">Last Name</label>
             <input
               type="text"
               id="lastName"
               class="form-control"
               v-model="hero.lastName"
+              placeholder="📛"
             />
+            <span class="text-danger">{{ errors[0] }}</span>
+            </ValidationProvider>
           </div>
         </section>
-        <label for="house" class="mt-3">House</label>
-        <input
-          type="text"
-          id="house"
-          class="form-control"
-          v-model="hero.house"
-        />
-        <label for="knownAs" class="mt-3">Known as</label>
-        <input
-          type="text"
-          id="knownAs"
-          class="form-control"
-          v-model="hero.knownAs"
-        />
-        <button type="submit" class="btn btn-info mt-3" :disabled="isSuccess">
+       <section>
+         <ValidationProvider rules="required" v-slot="{errors}">
+           <label for="house" class="mt-3">House</label>
+           <input
+               type="text"
+               id="house"
+               class="form-control"
+               v-model="hero.house"
+               placeholder="🏠"
+           />
+           <span class="text-danger">{{ errors[0] }}</span>
+         </ValidationProvider>
+       </section>
+       <section>
+         <ValidationProvider rules="required" v-slot="{errors}">
+           <label for="knownAs" class="mt-3">Known as</label>
+           <input
+               type="text"
+               id="knownAs"
+               class="form-control"
+               v-model="hero.knownAs"
+               placeholder="👀"
+           />
+           <span class="text-danger">{{ errors[0] }}</span>
+         </ValidationProvider>
+       </section>
+        <button type="submit" class="btn btn-info mt-3" :disabled="invalid">
           Update
         </button>
         <button
@@ -60,6 +81,7 @@
           Back
         </button>
       </form>
+      </ValidationObserver>
     </div>
     <div v-if="isSuccess" class="alert alert-success col-md-3" role="alert">
       This hero has been updated!
