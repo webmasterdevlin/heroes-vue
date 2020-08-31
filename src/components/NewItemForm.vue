@@ -17,51 +17,88 @@
     </section>
     <transition name="slide" type="animation">
       <div class="card my-3" style="width: auto;" v-if="isShowNewItemForm">
+        <ValidationObserver v-slot="{ invalid }">
         <form class="card-header" @submit.prevent="onSubmit">
           <section class="d-flex flex-row">
             <div class="mt-3 mr-3 input-width">
-              <label for="firstName">First Name</label>
-              <input
-                type="text"
-                id="firstName"
-                class="form-control"
-                v-model="newItem.firstName"
-              />
+              <section>
+                <ValidationProvider rules="required" v-slot="{errors}">
+                  <label for="firstName">First Name</label>
+                  <input
+                      type="text"
+                      id="firstName"
+                      class="form-control"
+                      v-model="newItem.firstName"
+                  />
+                  <span class="text-danger">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </section>
+
             </div>
             <div class="mt-3 ml-3 input-width">
-              <label for="lastName">Last Name</label>
-              <input
-                type="text"
-                id="lastName"
-                class="form-control"
-                v-model="newItem.lastName"
-              />
+             <section>
+               <ValidationProvider rules="required" v-slot="{errors}">
+                 <label for="lastName">Last Name</label>
+                 <input
+                     type="text"
+                     id="lastName"
+                     class="form-control"
+                     v-model="newItem.lastName"
+                 />
+                 <span class="text-danger">{{ errors[0] }}</span>
+               </ValidationProvider>
+             </section>
             </div>
           </section>
-          <label for="house" class="mt-3">House</label>
-          <input
-            type="text"
-            id="house"
-            class="form-control"
-            v-model="newItem.house"
-          />
-          <label for="knownAs" class="mt-3">Known as</label>
-          <input
-            type="text"
-            id="knownAs"
-            class="form-control"
-            v-model="newItem.knownAs"
-          />
-          <button type="submit" class="btn btn-success mt-3">Save</button>
+          <section>
+            <ValidationProvider rules="required" v-slot="{errors}">
+              <label for="house" class="mt-3">House</label>
+              <input
+                  type="text"
+                  id="house"
+                  class="form-control"
+                  v-model="newItem.house"
+              />
+              <span class="text-danger">{{ errors[0] }}</span>
+            </ValidationProvider>
+          </section>
+          <section>
+            <ValidationProvider rules="required" v-slot="{errors}">
+              <label for="knownAs" class="mt-3">Known as</label>
+              <input
+                  type="text"
+                  id="knownAs"
+                  class="form-control"
+                  v-model="newItem.knownAs"
+              />
+              <span class="text-danger">{{ errors[0] }}</span>
+            </ValidationProvider>
+          </section>
+         <section>
+           <button type="submit" :disabled="invalid" class="btn btn-success mt-3">Save</button>
+         </section>
         </form>
+        </ValidationObserver>
       </div>
     </transition>
   </div>
 </template>
 
 <script>
+import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
+import { required } from 'vee-validate/dist/rules';
+
+extend('required', {
+  ...required,
+  message: 'This field is required'
+});
+
 export default {
   name: "NewItemForm",
+  components: {
+    ValidationProvider,
+    ValidationObserver
+  },
   props: {
     isShowNewItemForm: {
       type: Boolean,
@@ -86,4 +123,6 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>
